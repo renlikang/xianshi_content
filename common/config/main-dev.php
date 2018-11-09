@@ -47,28 +47,7 @@ return [
             ]
         ],
 
-        'oauth2_redis' => [
-            'class' => 'yii\redis\Connection',
-            'hostname' => '127.0.0.1',
-            'port' => '6379',
-            'database' => 5,
-            'socketClientFlags' => STREAM_CLIENT_CONNECT
-        ],
-        'queue' => [
-            'class' => \yii\queue\amqp\Queue::class,
-            'host' => 'localhost',
-            'port' => 5672,
-            'user' => 'guest',
-            'password' => 'guest',
-            'queueName' => 'queue'
-        ],
-        'elasticsearch' => [
-            'class' => 'yii\elasticsearch\Connection',
-            'nodes' => [
-                ['http_address' => '127.0.0.1:9200'],
-            ],
-            'autodetectCluster' => false
-        ],
+
 
         'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',
