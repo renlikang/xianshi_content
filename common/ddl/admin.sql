@@ -1,5 +1,5 @@
 set autocommit=0;
-create database woof_admin charset=utf8;
+create database woof_admin charset=utf8mb4;
 use woof_admin;
 
 CREATE TABLE admin (
@@ -19,7 +19,7 @@ CREATE TABLE admin (
 create table file_info(
   `fileId` varchar(255) NOT NULL COMMENT '文件md5标识',
   `path` varchar(255) not null comment 'path地址',
-  `sourceType` int(11) not null default 1 comment '资源服务器供应商， 1:又拍云',
+  `sourceType` int(11) not null default 1 comment '资源服务器供应商， 1:阿里云',
   `url` text COMMENT 'url地址',
   `fileSize`  int(11) not null default 0 comment '文件大小',
   cTime TIMESTAMP not null  DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',

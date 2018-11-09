@@ -22,12 +22,12 @@ use linslin\yii2\curl\Curl;
  * @property string $language 语言（en 英文 zh_CN 简体中文 zh_TW 繁体中文）
  * @property string $birthday 生日
  * @property resource $signature 用户签名
- * @property int $created_at 创建时间
- * @property int $updated_at 更新时间
  * @property string $session_key
  * @property string $openid
  * @property string $unionid
  * @property int $status 用户状态:1正常，2禁言
+ * @property string $cTime 添加时间
+ * @property string $uTime 更新时间
  * @property int $deleteFlag 删除标识:0正常，1删除
  */
 class User extends ActiveRecord implements IdentityInterface
@@ -70,12 +70,12 @@ class User extends ActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
-            [['type', 'gender', 'created_at', 'updated_at', 'status', 'deleteFlag'], 'integer'],
+            [['type', 'gender', 'status', 'deleteFlag'], 'integer'],
             [['birthday'], 'safe'],
-            [['created_at', 'updated_at', 'session_key', 'openid'], 'required'],
+            [['session_key', 'openid'], 'required'],
             [['nickName', 'avatarUrl', 'signature'], 'string', 'max' => 255],
             [['country', 'province', 'city', 'language', 'session_key', 'openid', 'unionid'], 'string', 'max' => 32],
-            [['nickName', 'avatarUrl', 'gender', 'country', 'province', 'city', 'language', 'birthday', 'signature'], 'safe', 'on' => 'update']
+            [['uTime', 'cTime','nickName', 'avatarUrl', 'gender', 'country', 'province', 'city', 'language', 'birthday', 'signature'], 'safe', 'on' => 'update']
         ];
     }
 
@@ -209,25 +209,5 @@ class User extends ActiveRecord implements IdentityInterface
     public function removePasswordResetToken()
     {
         $this->password_reset_token = null;
-    }
-
-    public function beforeSave($insert)
-    {
-        if(!$this->openid) {
-            $this->openid = 'none';
-        }
-
-        if (!empty($this->avatarUrl) && substr($this->avatarUrl, 0, strlen("https://static.heywoof.com")) != "https://static.heywoof.com") {
-            if(strstr($this->avatarUrl, 'https')) {
-                $curl = new Curl;
-                $curl->setOption(CURLOPT_SSL_VERIFYPEER, false);
-                $curl->setOption(CURLOPT_SSL_VERIFYHOST, false);
-                $this->avatarUrl = Yii::$app->upYun->uploadContent($curl->get($this->avatarUrl), md5($this->avatarUrl) . '.jpg');
-            } else {
-                $this->avatarUrl = Yii::$app->upYun->uploadContent(file_get_contents($this->avatarUrl), md5($this->avatarUrl) . '.jpg');
-            }
-        }
-
-        return parent::beforeSave($insert);
     }
 }

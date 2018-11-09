@@ -7,26 +7,19 @@ return [
     'components' => [
         'db_admin' => [
             'class' => 'yii\db\Connection',
-            'dsn' => 'mysql:host=127.0.0.1;dbname=woof_admin',
+            'dsn' => 'mysql:host=127.0.0.1;port=3308;dbname=woof_admin',
             'username' => 'root',
             'password' => 'Woof123456!',
             'charset' => 'utf8mb4',
         ],
         'db_content' => [
             'class' => 'yii\db\Connection',
-            'dsn' => 'mysql:host=127.0.0.1;dbname=woof_content',
+            'dsn' => 'mysql:host=127.0.0.1;port=3308;dbname=woof_content',
             'username' => 'root',
             'password' => 'Woof123456!',
             'charset' => 'utf8mb4',
         ],
 
-        'db' => [
-            'class' => 'yii\db\Connection',
-            'dsn' => 'mysql:host=127.0.0.1;dbname=woof_oauth2',
-            'username' => 'root',
-            'password' => 'Woof123456!',
-            'charset' => 'utf8mb4',
-        ],
         'cache' => [//主业务 cache
             'class' => 'common\components\Cache',
             'keyPrefix' => 'WOOF.DEV.',
@@ -51,21 +44,6 @@ return [
             'port' => '6379',
             'database' => 5,
             'socketClientFlags' => STREAM_CLIENT_CONNECT
-        ],
-        'queue' => [
-            'class' => \yii\queue\amqp\Queue::class,
-            'host' => '127.0.0.1',
-            'port' => 5672,
-            'user' => 'admin',
-            'password' => '12345678_woof',
-            'queueName' => 'queue'
-        ],
-        'elasticsearch' => [
-            'class' => 'yii\elasticsearch\Connection',
-            'nodes' => [
-                ['http_address' => '127.0.0.1:9200'],
-            ],
-            'autodetectCluster' => false
         ],
 
         'mailer' => [

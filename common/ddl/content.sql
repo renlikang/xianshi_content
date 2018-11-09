@@ -11,8 +11,7 @@ CREATE TABLE `article` (
   `subTitle` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '副标题',
   `summary` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT '内容摘要',
   `headImg` varchar(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '头图',
-  `coverType` set('image','video') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT 'image' COMMENT '封面类型',
-  `covers` json DEFAULT NULL COMMENT '封面图片',
+  `content` json DEFAULT NULL COMMENT '文章内容',
   `orderId` int(11) NOT NULL DEFAULT '0' COMMENT '权重',
   `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '状态 1:启用 0:禁用',
   `cTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
@@ -20,46 +19,7 @@ CREATE TABLE `article` (
   `deleteFlag` tinyint(1) NOT NULL DEFAULT '0' COMMENT '删除标识:0正常，1删除',
   PRIMARY KEY (`articleId`),
   KEY `authorId` (`authorId`)
-) ENGINE=InnoDB AUTO_INCREMENT=3598 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='文章表'
-
-CREATE TABLE paragraph (
-  paragraphId int(11) NOT NULL AUTO_INCREMENT COMMENT '段落ID',
-  articleId int(11) NOT NULL COMMENT '内容ID',
-  orderId int(11) NOT NULL DEFAULT 0 COMMENT '段落顺序',
-  cTime TIMESTAMP not null  DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
-  uTime TIMESTAMP not null DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  deleteFlag tinyint(1) not null DEFAULT 0 COMMENT '删除标识:0正常，1删除',
-  PRIMARY KEY (paragraphId),
-  INDEX articleId(articleId)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT '文章段落表';
-
-CREATE TABLE paragraph_content(
-  contentId int(11) NOT NULL AUTO_INCREMENT COMMENT '内容ID',
-  articleId int(11) NOT NULL  COMMENT '文章ID',
-  paragraphId int(11) NOT NULL  COMMENT '段落ID',
-  `type` VARCHAR(128) NOT NULL DEFAULT 'text' COMMENT '内容类型',
-  `content` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT '内容',
-  orderId int(11) NOT NULL DEFAULT 0 COMMENT '内容顺序',
-  cTime TIMESTAMP not null  DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
-  uTime TIMESTAMP not null DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  deleteFlag tinyint(1) not null DEFAULT 0 COMMENT '删除标识:0正常，1删除',
-  PRIMARY KEY (contentId),
-  INDEX articleId(articleId),
-  INDEX paragraphId(paragraphId)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT '文章段落内容表';
-
-
-CREATE TABLE article_static (
-  id int(11) NOT NULL AUTO_INCREMENT COMMENT 'ID',
-  articleId int(11) NOT NULL COMMENT '内容ID',
-  `type` TINYINT(1) NOT NULL DEFAULT 1 COMMENT '1：封面',
-  url TEXT COMMENT '静态资源url',
-  cTime TIMESTAMP not null  DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
-  uTime TIMESTAMP not null DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  deleteFlag tinyint(1) not null DEFAULT 0 COMMENT '删除标识:0正常，1删除',
-  PRIMARY KEY (id),
-  INDEX articleId(articleId)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT '文章静态资源表';
+) ENGINE=InnoDB AUTO_INCREMENT=3598 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='文章表';
 
 
 CREATE TABLE article_comment(
@@ -120,23 +80,6 @@ CREATE TABLE `article_forward` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='转发表';
 
-CREATE TABLE `account` (
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '账户Id',
-  `userId` int(11) NOT NULL COMMENT '用户Id',
-  `decibels` int(11) NOT NULL COMMENT '分贝账户',
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `userId` (`userId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='账户表';
-
-CREATE TABLE `account_logs` (
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '记录Id',
-  `accountId` int(11) NOT NULL COMMENT '账户Id',
-  `log` json NOT NULL COMMENT '记录内容',
-  `cTime` timestamp NOT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '创建时间',
-  `uTIme` timestamp NOT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  PRIMARY KEY (`id`),
-  KEY `accountId` (`accountId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='账户变动记录表';
 
 create table `tag_map` (
   `tagName` varbinary(255) COMMENT '标签名称',
@@ -149,6 +92,7 @@ create table `tag` (
   `tagName` varbinary(255) COMMENT '标签名称',
   `headImg` VARCHAR(255) NOT NULL DEFAULT '' COMMENT '头图',
   `realTagName` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '标签名称（real）',
+  `md5TagName` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '标签名称（md5）',
   PRIMARY KEY (`tagName`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='标签表';
 

@@ -18,8 +18,7 @@ use linslin\yii2\curl\Curl;
  * @property string $subTitle 副标题
  * @property string $summary 内容摘要
  * @property string $headImg 头图
- * @property string $coverType 封面类型
- * @property array $covers 封面图片
+ * @property array $content 封面图片
  * @property int $orderId 权重
  * @property int $status 状态 1:启用 0:禁用
  * @property string $cTime 添加时间
@@ -53,8 +52,8 @@ class ArticleModel extends \yii\db\ActiveRecord
         return [
             [['authorId'], 'required'],
             [['authorId', 'type', 'orderId', 'status', 'deleteFlag'], 'integer'],
-            [['summary', 'coverType'], 'string'],
-            [['covers', 'cTime', 'uTime'], 'safe'],
+            [['summary'], 'string'],
+            [['content', 'cTime', 'uTime'], 'safe'],
             [['source'], 'string', 'max' => 32],
             [['title', 'subTitle'], 'string', 'max' => 255],
         ];
@@ -82,48 +81,5 @@ class ArticleModel extends \yii\db\ActiveRecord
             'uTime' => 'U Time',
             'deleteFlag' => 'Delete Flag',
         ];
-    }
-
-    public function beforeSave($insert)
-    {
-        if (!empty($this->headImg) && substr($this->headImg, 0, strlen("https://static.heywoof.com")) != "https://static.heywoof.com") {
-            if(strstr($this->headImg, 'https')) {
-                $curl = new Curl;
-                $curl->setOption(CURLOPT_SSL_VERIFYPEER, false);
-                $curl->setOption(CURLOPT_SSL_VERIFYHOST, false);
-                $this->headImg = Yii::$app->upYun->uploadContent($curl->get($this->headImg), md5($this->headImg) . '.jpg');
-            } else {
-                $this->headImg = Yii::$app->upYun->uploadContent(file_get_contents($this->headImg), md5($this->headImg) . '.jpg');
-            }
-
-        }
-        $this->title = Helper::encodeEmoji($this->title);
-        $this->subTitle = Helper::encodeEmoji($this->subTitle);
-        $this->summary  = Helper::encodeEmoji($this->summary);
-
-        if (is_numeric($this->cTime)) {
-            $this->cTime = date('Y-m-d H:i:s', $this->cTime > 0 ? $this->cTime : 0);
-        }
-
-        if (is_numeric($this->uTime)) {
-            $this->uTime = date('Y-m-d H:i:s', $this->uTime);
-        }
-
-        return parent::beforeSave($insert);
-    }
-
-    public function afterFind()
-    {
-        $this->title = Helper::decodeEmoji($this->title);
-        $this->subTitle = Helper::decodeEmoji($this->subTitle);
-        $this->summary = Helper::decodeEmoji($this->summary);
-        $this->cTime = strtotime($this->cTime);
-        $this->uTime = strtotime($this->uTime);
-    }
-
-    public function afterSave($insert, $changedAttributes)
-    {
-        ArticleElasticModel::create($this->articleId, $this->tagNames);
-        parent::afterSave($insert, $changedAttributes);
     }
 }
