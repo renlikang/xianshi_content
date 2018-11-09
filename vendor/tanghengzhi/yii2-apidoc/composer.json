@@ -1,0 +1,21 @@
+{
+  "name"  : "tanghengzhi/yii2-apidoc",
+  "description": "yii api doc",
+  "type": "library",
+  "autoload": {
+    "psr-4": {"tanghengzhi\\apidoc\\": ""}
+  },
+  "require": {
+    "php": ">=5.4",
+    "zircote/swagger-php": "^2.0",
+    "bower-asset/swagger-ui": "^2.0"
+  },
+  "minimum-stability": "dev",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "tanghengzhi",
+      "email": "wenjie0032@gmail.com"
+    }
+  ]
+}

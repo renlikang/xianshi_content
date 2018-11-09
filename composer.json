@@ -1,0 +1,57 @@
+{
+    "name": "yiisoft/yii2-app-advanced",
+    "description": "Yii 2 Advanced Project Template",
+    "keywords": ["yii2", "framework", "advanced", "project template"],
+    "homepage": "http://www.yiiframework.com/",
+    "type": "project",
+    "license": "BSD-3-Clause",
+    "support": {
+        "issues": "https://github.com/yiisoft/yii2/issues?state=open",
+        "forum": "http://www.yiiframework.com/forum/",
+        "wiki": "http://www.yiiframework.com/wiki/",
+        "irc": "irc://irc.freenode.net/yii",
+        "source": "https://github.com/yiisoft/yii2"
+    },
+    "minimum-stability": "stable",
+    "require": {
+        "php": ">=7.0.0",
+        "yiisoft/yii2": "~2.0.6",
+        "yiisoft/yii2-bootstrap": "~2.0.0",
+        "yiisoft/yii2-swiftmailer": "~2.0.0 || ~2.1.0",
+        "yiisoft/yii2-redis": "^2.0",
+        "fedemotta/yii2-aws-sdk": "*",
+        "knplabs/knp-snappy": "^1.0",
+        "h4cc/wkhtmltoimage-amd64": "0.12.x",
+        "yiisoft/yii2-queue": "^2.1",
+        "phpseclib/phpseclib": "~2.0",
+        "upyun/sdk": "^3.3",
+        "linslin/yii2-curl": "^1.2",
+        "spipu/html2pdf": "^5.2",
+        "sentry/sentry": "^1.9",
+        "notamedia/yii2-sentry": "^1.3",
+        "phpoffice/phpexcel": "^1.8",
+        "filsh/yii2-oauth2-server": "^2.0",
+        "yiisoft/yii2-elasticsearch": "~2.0.0",
+        "php-amqplib/php-amqplib": "^2.8"
+    },
+    "require-dev": {
+        "yiisoft/yii2-debug": "~2.0.0",
+        "yiisoft/yii2-gii": "~2.0.0",
+        "yiisoft/yii2-faker": "~2.0.0",
+        "codeception/base": "^2.2.3",
+        "codeception/verify": "~0.3.1",
+        "tanghengzhi/yii2-apidoc": "^1.0"
+    },
+    "config": {
+        "process-timeout": 1800,
+        "fxp-asset": {
+            "enabled": false
+        }
+    },
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://asset-packagist.org"
+        }
+    ]
+}
