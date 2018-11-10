@@ -15,13 +15,4 @@ class NoticeController extends Controller
     {
 
     }
-
-    public function actionPub()
-    {
-        Yii::$app->queue->push(new NoticeJob([
-            'type' => 'notice',
-            'content' => 'RabbitMQ Test',
-            'userId' => 61
-        ]));
-    }
 }
