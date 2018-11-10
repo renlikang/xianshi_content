@@ -11,14 +11,14 @@ return [
             'dsn' => 'mysql:host=127.0.0.1;port=3307;dbname=woof_admin',
             'username' => 'root',
             'password' => 'root',
-            'charset' => 'utf8mb4',
+            'charset' => 'utf8',
         ],
         'db_content' => [
             'class' => 'yii\db\Connection',
             'dsn' => 'mysql:host=127.0.0.1;port=3307;dbname=woof_content',
             'username' => 'root',
             'password' => 'root',
-            'charset' => 'utf8mb4',
+            'charset' => 'utf8',
         ],
         
         'cache' => [//主业务 cache
