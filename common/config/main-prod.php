@@ -9,15 +9,15 @@ return [
         'db_admin' => [
             'class' => 'yii\db\Connection',
             'dsn' => 'mysql:host=127.0.0.1;port=3307;dbname=woof_admin',
-            'username' => 'heywoofprod',
-            'password' => 'zaq12wsxprod!',
+            'username' => 'root',
+            'password' => 'Woof123456!',
             'charset' => 'utf8mb4',
         ],
         'db_content' => [
             'class' => 'yii\db\Connection',
             'dsn' => 'mysql:host=127.0.0.1;port=3307;dbname=woof_content',
-            'username' => 'heywoofprod',
-            'password' => 'zaq12wsxprod!',
+            'username' => 'root',
+            'password' => 'Woof123456!',
             'charset' => 'utf8mb4',
         ],
         
