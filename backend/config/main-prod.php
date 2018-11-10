@@ -11,10 +11,11 @@ $config = [
             'flushInterval' => 1,
             'targets' => [
                 [
-                    'class' => 'notamedia\sentry\SentryTarget',
-                    'dsn' => 'https://e1075e796b91405eadaddf5441475658@sentry.heywoof.com/9',
+                    'class' => 'yii\log\FileTarget',
                     'levels' => ['error', 'warning'],
-                    'context' => true, // Write the context information. The default is true.
+                    'categories' => ['common\*', 'backend\*'],
+                    'logFile' => '/opt/logs/woof/prod/backend/app.log',
+                    'logVars' => [],
                     'prefix' => function () {
                         $user = Yii::$app->has('user', true) ? Yii::$app->get('user') : null;
                         $uid = $user ? $user->getId(false) : '-';
@@ -24,12 +25,7 @@ $config = [
                         return "[$formatTime] [$uid] [$ip]";
                     },
                     'exportInterval' => 1,
-                    'except' => [
-                        'yii\web\HttpException:404',
-                        'yii\web\HttpException:403',
-                        'yii\web\HttpException:451',
-                        'yii\web\HttpException:423',
-                    ],
+                    'except' => ['yii\web\HttpException:404', 'yii\web\ForbiddenHttpException:403'],
 
                 ],
 

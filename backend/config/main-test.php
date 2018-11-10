@@ -11,10 +11,11 @@ $config = [
             'flushInterval' => 1,
             'targets' => [
                 [
-                    'class' => 'notamedia\sentry\SentryTarget',
-                    'dsn' => 'https://8bdd16becdd5433595344eccd83a2091@sentry.heywoof.com/8',
+                    'class' => 'yii\log\FileTarget',
                     'levels' => ['error', 'warning'],
-                    'context' => true, // Write the context information. The default is true.
+                    'categories' => ['common\*', 'backend\*'],
+                    'logFile' => '/opt/logs/woof/test/backend/app.log',
+                    'logVars' => [],
                     'prefix' => function () {
                         $user = Yii::$app->has('user', true) ? Yii::$app->get('user') : null;
                         $uid = $user ? $user->getId(false) : '-';
